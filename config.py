@@ -31,4 +31,6 @@ SECRET_KEY = 'you-will-never-guess'
 ## AUTORIZATION##############################
 OUTHID_PROVIDERS = ['facebook']
 
+PROPAGATE_EXCEPTIONS = True
+
 
