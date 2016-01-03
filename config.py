@@ -7,12 +7,8 @@ if os.environ.get('DATABASE_URL') is None:  ## PRODUCTION
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
     OAUTH_CREDENTIALS = {
     'facebook': {
-        'id': '10123270dfndm82122718',
+        'id': '1012327082122718',
         'secret': '29351829c68ccb624e6bc916bee7567d'
-    },
-    'twitter': {
-        'id': '3RzWQclolxWZIMq5LJqzRZPTl',
-        'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     }
 }    
 else:  #LOCAL
@@ -21,10 +17,6 @@ else:  #LOCAL
     'facebook': {
         'id': '416771981865519',
         'secret': 'cda72d0115429b3827bd626aa80c9bd5'
-    },
-    'twitter': {
-        'id': '3RzWQclolxWZIMq5LJqzRZPTl',
-        'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     }
 }    
 
