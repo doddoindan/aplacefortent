@@ -27,6 +27,7 @@ def before_request():
 def load_user(userid):
     user = User.query.get(int(userid))
     if user:
+        user.location = 'Odessa'
         return user
 
 
