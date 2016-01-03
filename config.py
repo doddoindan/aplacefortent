@@ -16,7 +16,7 @@ else:  #PRODUCTION
     OAUTH_CREDENTIALS = {
     'facebook': {
             'id': '1012327082122718',
-        'secret': '29351829c68ccb624e6bc916bee7567d'
+        'secret': 'ec32784af5a77d1ddfd050f351e39dc4'
 
     }
 }    
