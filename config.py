@@ -7,7 +7,7 @@ if os.environ.get('DATABASE_URL') is None:  ## PRODUCTION
     SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
     OAUTH_CREDENTIALS = {
     'facebook': {
-        'id': '1012327082122718',
+        'id': '10123270dfndm82122718',
         'secret': '29351829c68ccb624e6bc916bee7567d'
     },
     'twitter': {
