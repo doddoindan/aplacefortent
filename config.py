@@ -9,6 +9,10 @@ if os.environ.get('DATABASE_URL') is None:  ## LOCAL
     'facebook': {
         'id': '416771981865519',
         'secret': 'cda72d0115429b3827bd626aa80c9bd5'
+    },
+        'twitter': {
+        'id': '3RzWQclolxWZIMq5LJqzRZPTl',
+        'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     }
 }    
 else:  #PRODUCTION
@@ -18,6 +22,10 @@ else:  #PRODUCTION
             'id': '1012327082122718',
         'secret': 'ec32784af5a77d1ddfd050f351e39dc4'
 
+    },
+        'twitter': {
+        'id': '3RzWQclolxWZIMq5LJqzRZPTl',
+        'secret': 'm9TEd58DSEtRrZHpz2EjrV9AhsBRxKMo8m3kuIZj3zLwzwIimt'
     }
 }    
 
