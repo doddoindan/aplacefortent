@@ -6,7 +6,8 @@ class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(64), unique=True)
     nickname = db.Column(db.String(64), unique=True)
-    social_id = db.Column(db.String(64), unique=True)	
+    social_id = db.Column(db.String(64), unique=True)
+    location = db.Column(db.String(64))
  
     def __init__(self, social_id	, email, nickname=None):
         self.email = email.lower()

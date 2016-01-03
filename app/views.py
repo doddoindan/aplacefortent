@@ -1,26 +1,25 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
-from flask.ext.login import  login_user, logout_user, current_user, login_required
+from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from models import User
 from .oauth import OAuthSignIn
-
-
 
 
 @app.route('/')
 @app.route('/index')
 @login_required
 def index():
-	return "OK"
+    return render_template('index.html')
 
 
-#BEFORE REQUEST PART
+# BEFORE REQUEST PART
 
 @app.before_request
 def before_request():
     g.user = current_user
-	
-#LOGIN_PART
+
+
+# LOGIN_PART
 
 
 
@@ -28,24 +27,27 @@ def before_request():
 def load_user(userid):
     user = User.query.get(int(userid))
     if user:
-        return user	
-        
-@app.route('/login',methods=['GET','POST'])
-def login():
-	if g.user is not None and g.user.is_authenticated:
-		return redirect(url_for('index'))
+        return user
 
-	return render_template('login.html',
-							title = 'Sign In'
-							)
-							
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if g.user is not None and g.user.is_authenticated:
+        return redirect(url_for('index'))
+
+    return render_template('login.html',
+                           title='Sign In'
+                           )
+
+
 @app.route('/authorize/<provider>')
 def oauth_authorize(provider):
     if not current_user.is_anonymous:
         return redirect(url_for('index'))
     oauth = OAuthSignIn.get_provider(provider)
     return oauth.authorize()
-    
+
+
 @app.route('/callback/<provider>')
 def oauth_callback(provider):
     if not current_user.is_anonymous:
@@ -63,4 +65,4 @@ def oauth_callback(provider):
         db.session.add(user)
         db.session.commit()
     login_user(user, True)
-    return redirect(url_for('index'))    
+    return redirect(url_for('index'))

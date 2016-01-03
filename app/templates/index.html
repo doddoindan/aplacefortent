@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    {{googlemap("my_awesome_map", lat=37.4419, lng=-122.1419, markers=[(37.4419, -122.1419)])}}
+
+    <script>
+    google.maps.event.addListener(map, 'click', function(event) {
+   placeMarker(event.latLng);
+});
+
+function placeMarker(location) {
+    var marker = new google.maps.Marker({
+        position: location,
+        map: map
+    });
+}
+
+    </script>
+{% endblock %}
