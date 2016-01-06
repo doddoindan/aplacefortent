@@ -1,7 +1,8 @@
 body
 {
     background: url('/static/img/login.jpg') fixed;
-    background-size: cover;
+    background-size:cover;
+    background-repeat: no-repeat;
     padding: 0;
     margin: 0;
 }
