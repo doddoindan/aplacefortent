@@ -1,11 +1,12 @@
 from flask import render_template, flash, redirect, session, url_for, request, g
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
-from models import User
+from models import User, Marker
 from .oauth import OAuthSignIn
 from flask import request
 from flask import Response
 import json
+from datetime import datetime
 
 
 ##INDEX
@@ -17,19 +18,32 @@ def index():
     return render_template('index.html')
 
 
+#GET_MARKERS
+@app.route('/loadmarker', methods=['GET', 'POST'])
+@login_required
+def loadmarker():
+
+    respJson = json.dumps([u.as_dict for u in g.user.markers.all()])
+    return Response(respJson, mimetype='application/json')
+
+
 ## SAVE MARKER
-@app.route('/savemarker', methods=['GET', 'POST'])
+@app.route('/savemarker', methods=[ 'POST'])
 @login_required
 def savemarker():
-    print(request.data)
+    #name = request.form['name'];
+    latlang = request.form['latlang'];
+    newMarker = Marker(latt=latlang.split(',')[0],
+                       long=latlang.split(',')[1],
+                       owner=g.user,
+                       timestamp=datetime.utcnow() )
+    db.session.add(newMarker)
+    db.session.commit()
+    print(latlang.split(',')[1])
+    print(latlang.split(',')[0])
+    print(latlang)
 
-    ##Return markers list
-    print("_____________")
-    respJson = json.dumps([u.as_dict for u in g.user.markers.all()])
-
-    #xml = '<?xml version="1.0"?><markers><marker name="Aasit" address="Hello Friend !" lat="47.614605" lng="-122.342644" type="house"/><marker name="sad" address="asdasdasd" lat="47.606133" lng="-122.341682" type="restaurant"/><marker name="bjhhjbvjhvbjh" address="jhjkhgjkgjkgkjgjgk" lat="47.615566" lng="-122.341499" type="bar"/><marker name="nh&#xC3;&#xA0; t&#xC3;&#xB4;i" address="h&#xC3;&#xAA; h&#xC3;&#xAA;" lat="47.597469" lng="-122.325050" type="house"/><marker name="tes" address="tes" lat="47.615051" lng="-122.343025" type="restaurant"/><marker name="Moi" address="yes" lat="47.622742" lng="-122.341080" type="house"/></markers>'
-    #return Response(respJson, mimetype='text/xml')
-    return Response(respJson, mimetype='application/json')
+    return json.dumps({'status':'OK'});
 
 
 
@@ -53,6 +67,12 @@ def load_user(userid):
     if user:
         user.location = 'Odessa'
         return user
+
+
+@app.route('/logout')
+def logout():
+    logout_user()
+    return redirect(url_for('index'))
 
 
 @app.route('/login', methods=['GET', 'POST'])

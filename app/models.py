@@ -2,7 +2,6 @@ from app import db, app
 import re
 
 
-
 class User(db.Model):
     __tablename__ = 'users'
     id = db.Column(db.Integer, primary_key=True)
@@ -10,11 +9,8 @@ class User(db.Model):
     nickname = db.Column(db.String(64), unique=True)
     social_id = db.Column(db.String(64), unique=True)
     location = db.Column(db.String(64))
-    markers = db.relationship('Marker', backref='owner', lazy = 'dynamic')
-    def __init__(self, social_id, email, nickname=None):
-        self.email = email.lower()
-        self.social_id = social_id
-        self.nickname = nickname
+    markers = db.relationship('Marker', backref='owner', lazy='dynamic')
+
 
     # These four methods are for Flask-Login
     def is_authenticated(self):
@@ -52,13 +48,10 @@ class Marker(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
     long = db.Column(db.Float, nullable=False)
     latt = db.Column(db.Float, nullable=False)
+    timestamp = db.Column(db.DateTime)
     _constr = db.UniqueConstraint("long", "latt")
 
     @property
     def as_dict(self):
-        return {c.name: getattr(self, c.name) for c in self.__table__.columns}
+        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns }
 
-    def __init__(self, user_id, long, latt):
-        self.user_id = user_id
-        self.long = long
-        self.latt = latt

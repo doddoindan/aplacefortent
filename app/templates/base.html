@@ -2,18 +2,32 @@
 
 <html>
   <head>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet" media="screen">
-    <link href="/static/css/bootstrap-responsive.min.css" rel="stylesheet">
+    <link href="/static/css/bootstrap.css" rel="stylesheet" media="screen">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
+     <link rel="stylesheet" href="https://raw.githubusercontent.com/lipis/bootstrap-social/gh-pages/bootstrap-social.css">
+
     <script src="http://code.jquery.com/jquery-latest.js"></script>
     <script src="/static/js/bootstrap.min.js"></script>
 	<script src="/static/js/moment.js"></script>
+    <script src="/static/js/jquery.cookie.js"></script>
+
+    {% if request.endpoint == 'login' %}
+        <link href="/static/css/login.css" rel="stylesheet">
+    {%  endif %}
+
+    {% if request.endpoint == 'index' %}
+
+        {% include "googleMapScript.html" %}
+    {%  endif %}
+
 
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% if title %}
-    <title>{{ title }} - microblog</title>
+    <title>{{ title }} - Welcome</title>
     {% else %}
-    <title>{{ 'Welcome to microblog' }}</title>
+    <title>{{ 'Welcome to all adventurers site' }}</title>
     {% endif %}
   </head>
   <body>
@@ -21,6 +35,6 @@
 	     {% block content %}{% endblock %}
 	   
 	 
-  </div>  
+
   </body>
 </html>

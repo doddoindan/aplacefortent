@@ -1,24 +1,50 @@
 {% extends "base.html"%}
 
 {% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="pr-wrap">
+                <div class="pass-reset">
+                    <label>
+                        Enter the email you signed up with</label>
+                    <input type="email" placeholder="Email" />
+                    <input type="submit" value="Submit" class="pass-reset-submit btn btn-success btn-sm" />
+                </div>
+            </div>
+            <div class="wrap">
+                <p class="form-title">
+                    Sign In</p>
 
-<h1>Sign In<h1/>
-<form action="" method="post" name="login">
+                <form class="login">
+                <input type="text" placeholder="Username" disabled/>
+                <input type="password" placeholder="Password" disabled />
 
-	<p>
-		Please login with your Facebook:<br>
+                  <a href="{{ url_for('oauth_authorize', provider='facebook') }}" class="btn btn-block btn-social btn-lg btn-facebook">
+                      <span class="fa fa-facebook"></span> Sign in with Facebook
+                    </a>
 
-	
-        
-          <p><a href="{{ url_for('oauth_authorize', provider='facebook') }}">Login with facebook</a></p>
-       	
-        <br>
-			  
-	</p>
-	
-	<p><input type="submit" value="Sign In"></p>
-</form>
+                <input type="submit" value="Sign In" class="btn btn-success btn-sm disabled" />
+
+                <div class="remember-forgot" >
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox" disabled/>
+                                    Remember Me
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-6 forgot-pass-content hide">
+                            <a href="javascription:void(0)" class="forgot-pass ">Forgot Password</a>
+                        </div>
+                    </div>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}	
-
-
-

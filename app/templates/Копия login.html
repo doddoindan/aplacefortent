@@ -1,0 +1,24 @@
+{% extends "base.html"%}
+
+{% block content %}
+
+<h1>Sign In<h1/>
+<form action="" method="post" name="login">
+
+	<p>
+		Please login with your Facebook:<br>
+
+	
+        
+          <p><a href="{{ url_for('oauth_authorize', provider='facebook') }}">Login with facebook</a></p>
+       	
+        <br>
+			  
+	</p>
+	
+	<p><input type="submit" value="Sign In"></p>
+</form>
+{% endblock %}	
+
+
+
