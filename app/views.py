@@ -14,6 +14,18 @@ from datetime import datetime
 
 
 ##EDIT MARKER
+@app.route('/deletemarker', [methods=['POST']])
+def deletemarker():
+    id = int(request.form['id'])
+
+    marker = Marker.query.filter_by(id=id).first()
+    if marker.user_id != g.user.id:
+        return jsonify({'status': 'ERR'})
+    db.session.delete(marker)
+    db.session.commit()
+
+
+##EDIT MARKER
 @app.route('/editmarker')
 @app.route('/editmarker/<int:id>')
 def editmarker(id=None):
@@ -70,7 +82,7 @@ def savemarker():
     else:
         print "NOOOOOOO________"
         print form.errors
-        return jsonify({'status': 'ERR'});
+        return jsonify({'status': 'ERR'})
 
     newMarker = Marker.query.filter_by(id=(form.id.data if form.id.data else -1)).first()
 

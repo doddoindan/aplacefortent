@@ -222,11 +222,11 @@
             }
             else {
                 //Remove saved marker from DB and map using jQuery Ajax
-                var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
-                var myData = {del: 'true', latlang: mLatLang}; //post variables
+                //var mLatLang = Marker.getPosition().toUrlValue(); //get marker position
+                var myData = {del: 'true', id: Marker.id}; //post variables
                 $.ajax({
                     type: "POST",
-                    url: "google-map-save-markers-db",
+                    url: {{ url_for("deletemarker") }},
                     data: myData,
                     success: function (data) {
                         Marker.setMap(null);
