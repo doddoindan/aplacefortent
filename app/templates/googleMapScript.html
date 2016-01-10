@@ -189,16 +189,18 @@
                     infowindow.setContent(contentString[0]);
 //                    $(infowindow)
                     var saveBtn = $(infowindow.content).find('button.save-marker')[0];
-                    if (!marker.editable){
-                     //   saveBtn.style.display = 'none';
-                    }
+                    var removeBtn = $(infowindow.content).find('button.remove-marker')[0];
 
                     if (typeof saveBtn !== 'undefined') //continue only when save button is present
                     {
-                        //add click listner to save marker button
-
                         google.maps.event.addDomListener(saveBtn, "click", function (event){
                                                             onSaveClick(marker)
+                        });
+                    }
+                    if (typeof removeBtn !== 'undefined') //continue only when save button is present
+                    {
+                        google.maps.event.addDomListener(removeBtn, "click", function (event) {
+                            remove_marker(marker);
                         });
                     }
                 }
@@ -226,11 +228,11 @@
                 var myData = {del: 'true', id: Marker.id}; //post variables
                 $.ajax({
                     type: "POST",
-                    url: {{ url_for("deletemarker") }},
+                    url: "{{ url_for("deletemarker") }}",
                     data: myData,
                     success: function (data) {
                         Marker.setMap(null);
-                        alert(data);
+                        //alert(data);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         alert(thrownError); //throw any errors
