@@ -2,9 +2,11 @@ blinker==1.4
 decorator==4.0.6
 Flask==0.10.1
 Flask-GoogleMaps==0.1.9
+flask-jsontools==0.1.1.post0
 Flask-Login==0.3.2
 Flask-Mail==0.9.1
 Flask-SQLAlchemy==2.1
+Flask-WTF==0.12
 gunicorn==19.4.3
 itsdangerous==0.24
 Jinja2==2.8
@@ -20,3 +22,4 @@ sqlparse==0.1.18
 Tempita==0.5.2
 Werkzeug==0.11.3
 wheel==0.24.0
+WTForms==2.1
