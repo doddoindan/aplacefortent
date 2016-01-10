@@ -65,8 +65,8 @@
                 $(data).each(function () {
                     var name = $(this).attr('description');//$(this).attr('name');
                     //var address = 'test';//'<p>'+ $(this).attr('address') +'</p>';
-                    var form = '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;'+
-                    '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>';
+                    var form = '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
+                            '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>';
 
                     var id = $(this).attr('id');
                     var editable = $(this).attr('editable');
@@ -80,7 +80,6 @@
             });
 
 
-
             //Right Click to Drop a New Marker
             google.maps.event.addListener(map, 'rightclick', function (event) {
                 //Edit form to be displayed with new marker
@@ -88,6 +87,7 @@
                 //Drop a new Marker with our Edit Form
                 create_marker(event.latLng, 'New Marker', EditForm, 0, true, true, true, "public/images/google_map_icons/pin_green.png");
             });
+            
 
 
         }
@@ -110,7 +110,7 @@
             });
             arrForm['latt'] = marker.getPosition().lat()
             arrForm['long'] = marker.getPosition().lng()
-            if ( false ) {
+            if (false) {
                 alert("Please enter Description!");
             } else {
                 save_marker(marker, arrForm, ''); //call save marker function
@@ -131,7 +131,7 @@
                 id: id
             });
             $.markers.push(marker);
-            if (!Form){
+            if (!Form) {
 
 
             }
@@ -141,8 +141,8 @@
                     '<h2 class="marker-heading">' + MapTitle + '</h2>' +
                     Form + ///
                     '</span>' +
-                    //'<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
-                   // '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
+                        //'<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
+                        // '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
                     '</div></div>');
 
             //Create an infoWindow
@@ -163,8 +163,8 @@
             {
                 //add click listner to save marker button
 
-                google.maps.event.addDomListener(saveBtn, "click", function(event){
-                        onSaveClick(marker)
+                google.maps.event.addDomListener(saveBtn, "click", function (event) {
+                    onSaveClick(marker)
                 });
             }
 
@@ -179,12 +179,12 @@
 
 
                     var contentString = $('<div class="marker-info-win">' +
-                    '<div class="marker-inner-win"><span class="info-content">' +
-                    '<h2 class="marker-heading">' + 'Edit' + '</h2>' +
-                    html + ///
-                    '</span>' +
+                            '<div class="marker-inner-win"><span class="info-content">' +
+                            '<h2 class="marker-heading">' + 'Edit' + '</h2>' +
+                            html + ///
+                            '</span>' +
 
-                    '</div></div>');
+                            '</div></div>');
 
                     infowindow.setContent(contentString[0]);
 //                    $(infowindow)
@@ -193,8 +193,8 @@
 
                     if (typeof saveBtn !== 'undefined') //continue only when save button is present
                     {
-                        google.maps.event.addDomListener(saveBtn, "click", function (event){
-                                                            onSaveClick(marker)
+                        google.maps.event.addDomListener(saveBtn, "click", function (event) {
+                            onSaveClick(marker)
                         });
                     }
                     if (typeof removeBtn !== 'undefined') //continue only when save button is present
