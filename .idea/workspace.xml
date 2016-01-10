@@ -6,15 +6,7 @@
     <bookmark url="file://$PROJECT_DIR$/app/templates/googleMapScript.html" line="121" mnemonic="1" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0b40bfb5-53b9-45b8-84fc-f2312dde983b" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/static/css/[rutracker.org].t3522754.torrent" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/static/css/[rutracker.org].t4065773.torrent" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/app/static/css/[rutracker.org].t5141941.torrent" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/static/css/main.css" afterPath="$PROJECT_DIR$/app/static/css/main.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/googleMapScript.html" afterPath="$PROJECT_DIR$/app/templates/googleMapScript.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/templates/index.html" afterPath="$PROJECT_DIR$/app/templates/index.html" />
-    </list>
+    <list default="true" id="0b40bfb5-53b9-45b8-84fc-f2312dde983b" name="Default" comment="" />
     <ignored path="aplacetotent.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -58,8 +50,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/templates/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26737967">
-              <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+            <state vertical-scroll-proportion="0.37433156">
+              <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
               <folding />
             </state>
           </provider>
@@ -1040,8 +1032,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26737967">
-          <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.37433156">
+          <caret line="14" column="15" selection-start-line="14" selection-start-column="15" selection-end-line="14" selection-end-column="15" />
           <folding />
         </state>
       </provider>
