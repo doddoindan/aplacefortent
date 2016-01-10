@@ -64,11 +64,15 @@
             $.get("{{url_for('loadmarker')}}", function (data) {
                 $(data).each(function () {
                     var name = $(this).attr('description');//$(this).attr('name');
-                    var address = 'test';//'<p>'+ $(this).attr('address') +'</p>';
+                    //var address = 'test';//'<p>'+ $(this).attr('address') +'</p>';
+                    var form = '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;'+
+                    '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>';
+
                     var id = $(this).attr('id');
+                    var editable = $(this).attr('editable');
                     var point = new google.maps.LatLng(parseFloat($(this).attr('latt')), parseFloat($(this).attr('long')));
 
-                    create_marker(point, name, address, id, false, false, false, "public/images/google_map_icons/pin_blue.png");
+                    create_marker(point, name, form, id, false, false, false, "public/images/google_map_icons/pin_blue.png");
                 });
 
                 // кластеризация
@@ -124,18 +128,21 @@
                 animation: google.maps.Animation.DROP,
                 title: "Hello World!",
                 //icon: iconPath
-                id: id,
+                id: id
             });
             $.markers.push(marker);
+            if (!Form){
 
+
+            }
             //Content structure of info Window for the Markers
             var contentString = $('<div class="marker-info-win">' +
                     '<div class="marker-inner-win"><span class="info-content">' +
                     '<h2 class="marker-heading">' + MapTitle + '</h2>' +
                     Form + ///
                     '</span>' +
-                    '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
-                    '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
+                    //'<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
+                   // '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
                     '</div></div>');
 
             //Create an infoWindow
@@ -176,14 +183,16 @@
                     '<h2 class="marker-heading">' + 'Edit' + '</h2>' +
                     html + ///
                     '</span>' +
-                    '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
-                    '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
+
                     '</div></div>');
 
                     infowindow.setContent(contentString[0]);
 //                    $(infowindow)
                     var saveBtn = $(infowindow.content).find('button.save-marker')[0];
-                    saveBtn.style.display = 'none';
+                    if (!marker.editable){
+                     //   saveBtn.style.display = 'none';
+                    }
+
                     if (typeof saveBtn !== 'undefined') //continue only when save button is present
                     {
                         //add click listner to save marker button

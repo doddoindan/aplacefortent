@@ -1,4 +1,5 @@
 from app import db, app
+from flask import g
 import re
 
 
@@ -60,5 +61,7 @@ class Marker(db.Model):
 
     @property
     def as_dict(self):
-        return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns }
+
+        return {'latt': self.latt,'long': self.long, 'editable':self.user_id==g.user.id, 'id':self.id}
+        #return {c.name: str(getattr(self, c.name)) for c in self.__table__.columns}
 

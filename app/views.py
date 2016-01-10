@@ -31,7 +31,7 @@ def editmarker(id=None):
 
     return render_template("editmarker_.html",
                              editMarkerForm=form,
-                             formReadonly=formReadonly
+                             formReadonly = formReadonly
                              )
 
 
@@ -52,7 +52,7 @@ def index():
 @app.route('/loadmarker', methods=['GET', 'POST'])
 @login_required
 def loadmarker():
-    respJson = json.dumps([u.as_dict for u in g.user.markers.all()])
+    respJson = json.dumps([u.as_dict for u in Marker.query.all()])
     return Response(respJson, mimetype='application/json')
 
 
