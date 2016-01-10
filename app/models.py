@@ -49,6 +49,13 @@ class Marker(db.Model):
     long = db.Column(db.Float, nullable=False)
     latt = db.Column(db.Float, nullable=False)
     timestamp = db.Column(db.DateTime)
+    description = db.Column(db.String(140), nullable=False)
+    shop = db.Column(db.Boolean, default=False)
+    water = db.Column(db.Boolean, default=False)
+    potable = db.Column(db.Boolean, default=False)
+    campfire = db.Column(db.Boolean, default=False)
+    maxtentcount = db.Column(db.Integer, default=2)
+
     _constr = db.UniqueConstraint("long", "latt")
 
     @property

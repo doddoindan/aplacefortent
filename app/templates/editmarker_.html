@@ -1,0 +1,51 @@
+<span class="info-content">
+    <div class="well"  style="width:300px">
+
+        <form disabled="" id="editmarker" action="{{ url_for('savemarker') }}" method="post" name="edit">
+        <div class="row">
+            {{ editMarkerForm.hidden_tag() }}
+            <div class="control-group{% if editMarkerForm.errors.post %} error{% endif %}">
+                <label class="control-label" for="description">Place description:</label>
+                 <div class="controls">
+                    {{ editMarkerForm.description(readonly=formReadonly, class="save-desc", style="min-width: 100%") }}
+                    {{ editMarkerForm.latt }} {{ editMarkerForm.long }} {{ editMarkerForm.id }}
+                    {% for error in editMarkerForm.errors.description %}
+                        <span class="help-inline">[{{error}}]</span><br>
+                    {% endfor %}
+                </div>
+            </div>
+
+               <div class="control-group" >
+                   <div class="row">
+
+                        <div class="controls col-xs-6">
+                            {{ editMarkerForm.shop( disabled=formReadonly)  }} Shop nearby
+                        </div>
+                        <div class="controls col-xs-6" >
+                            {{ editMarkerForm.campfire(disabled=formReadonly )  }} Campfire allowed
+                        </div>
+                   </div>
+                </div>
+                <p><div class="control-group">
+                    <div class="row">
+                        <div class="controls col-xs-6" >
+                             {{ editMarkerForm.water(disabled=formReadonly )  }} Water
+                        </div>
+                        <div class="controls col-xs-6" >
+                             {{ editMarkerForm.potable( disabled=formReadonly)  }} Potable water
+                        </div>
+                    </div>
+
+                </div></p>
+            <div class="control-group" >
+                <div class="controls">
+                    <label class="control-label" for="description">Max tent counts: &nbsp;</label>
+                        {{ editMarkerForm.maxtentcount(disabled=formReadonly) }}
+                </div>
+            </div>
+          </div>
+        </form>
+    </div>
+
+
+</span>

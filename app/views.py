@@ -1,12 +1,38 @@
-from flask import render_template, flash, redirect, session, url_for, request, g
+from flask.ext.sqlalchemy import inspect
+from flask import render_template, flash, redirect, session, url_for, g, jsonify
 from flask.ext.login import login_user, logout_user, current_user, login_required
 from app import app, login_manager, db
 from models import User, Marker
 from .oauth import OAuthSignIn
-from flask import request
-from flask import Response
+from flask import request, Response
+from forms import EditMarkerForm
+from wtforms import StringField, BooleanField, TextAreaField, SelectField
+
+
 import json
 from datetime import datetime
+
+
+##EDIT MARKER
+@app.route('/editmarker')
+@app.route('/editmarker/<int:id>')
+def editmarker(id=None):
+
+    formReadonly = False
+    if id != None:
+        marker = Marker.query.filter_by(id=id).first()
+        formReadonly = marker.user_id != g.user.id
+        form = EditMarkerForm(obj=marker)
+
+    else:
+        form = EditMarkerForm()
+
+
+
+    return render_template("editmarker_.html",
+                             editMarkerForm=form,
+                             formReadonly=formReadonly
+                             )
 
 
 ##INDEX
@@ -15,36 +41,57 @@ from datetime import datetime
 @app.route('/index', methods=['GET', 'POST'])
 @login_required
 def index():
-    return render_template('index.html')
+    form = EditMarkerForm()
+    return render_template('index.html',
+                           editMarkerForm=form,
+                           formReadonly=False
+                           )
 
 
-#GET_MARKERS
+# GET_MARKERS
 @app.route('/loadmarker', methods=['GET', 'POST'])
 @login_required
 def loadmarker():
-
     respJson = json.dumps([u.as_dict for u in g.user.markers.all()])
     return Response(respJson, mimetype='application/json')
 
 
+
 ## SAVE MARKER
-@app.route('/savemarker', methods=[ 'POST'])
+@app.route('/savemarker', methods=['POST'])
 @login_required
 def savemarker():
-    #name = request.form['name'];
-    latlang = request.form['latlang'];
-    newMarker = Marker(latt=latlang.split(',')[0],
-                       long=latlang.split(',')[1],
-                       owner=g.user,
-                       timestamp=datetime.utcnow() )
+
+    form = EditMarkerForm(request.form)
+    print form.data
+
+    if form.validate():
+        print "VAAAAAAAAALID"
+    else:
+        print "NOOOOOOO________"
+        print form.errors
+        return jsonify({'status': 'ERR'});
+
+    newMarker = Marker.query.filter_by(id=(form.id.data if form.id.data else -1)).first()
+
+    if newMarker is None:
+        newMarker = Marker()
+
+    newMarker.latt = form.latt.data
+    newMarker.long = form.long.data
+    newMarker.description=form.description.data
+    newMarker.water=form.water.data
+    newMarker.potable=form.potable.data
+    newMarker.campfire=form.campfire.data
+    newMarker.shop=form.shop.data
+    newMarker.maxtentcount=form.maxtentcount.data
+    newMarker.owner=g.user
+    newMarker.timestamp=datetime.utcnow()
+
     db.session.add(newMarker)
     db.session.commit()
-    print(latlang.split(',')[1])
-    print(latlang.split(',')[0])
-    print(latlang)
-
-    return json.dumps({'status':'OK'});
-
+    print newMarker.id
+    return jsonify({'status': 'OK', 'id': newMarker.id});
 
 
 # BEFORE REQUEST PART
