@@ -48,7 +48,7 @@
             var googleMapOptions =
             {
                 center: mapCenter, // map center
-                zoom: 17, //zoom level, 0 = earth view to higher value
+                zoom: 5, //zoom level, 0 = earth view to higher value
                 maxZoom: 18,
                 minZoom: 5,
                 zoomControlOptions: {
@@ -87,7 +87,7 @@
                 //Drop a new Marker with our Edit Form
                 create_marker(event.latLng, 'New Marker', EditForm, 0, true, true, true, "public/images/google_map_icons/pin_green.png");
             });
-            
+
 
 
         }
@@ -268,21 +268,22 @@
                 }
             });
         }
+        $('#splitter_button').click(function(){
+            var left_bar = $('#left_bar');
+            left_bar[left_bar.is(":visible") ? "hide" : "show"](400,
+                function() {
+
+               google.maps.event.trigger(map,"resize");
+
+            });
+
+
+            //$('#left_bar').class="col-lg-1 col-md-1 col-xs-1 fullheight";
+        });
 
     });
 </script>
 
 <style type="text/css">
-    #google_map {
-        width: 90%;
-        height: 500px;
-        margin-top: 0px;
-        margin-left: auto;
-        margin-right: auto;
-    }
 
-    h1.heading {
-        text-align: center;
-        font: 18px Georgia, "Times New Roman", Times, serif;
-    }
 </style>

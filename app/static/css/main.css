@@ -1,43 +1,55 @@
 
 
-.background-image {
-  background-image: url('/static/img/login.jpg');
-  background-size: cover;
-  display: block;
-  filter: blur(5px);
-  -webkit-filter: blur(5px);
-  height: 800px;
-  left: 0;
-  position: fixed;
-  right: 0;
-  z-index: 1;
+body, html {
+    height: 100%;
+    width: 100%;
+}
+
+.fullsize {
+    height: 100%;
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+.fullheight{
+    height : 100%
+}
+
+#google_map {
+
+    height: 100%;
+    margin-top: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+h1.heading {
+    text-align: center;
+    font: 18px Georgia, "Times New Roman", Times, serif;
+}
+
+
+
+.splitter {
+    float: left;
+    width: 20px;
+    height: 100%;
+    background: #3c3c3c;
+}
+
+#splitter_button{
+    height:100%;
+    width:100%;
 }
 
 .content {
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 3px;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.25);
-  font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-  top: 10px;
-  left: 0;
-  position: fixed;
-  margin-left: 20px;
-  margin-right: 20px;
-  right: 0;
-  z-index: 2;
-  padding: 0 10px;
+    overflow: hidden;
+    height: 100%;  }
+
+#left_bar, #main_bar{
+	-webkit-transition: all 0.5s ease;
 }
 
-body, html {
-  height: 100%;
-  width: 100%;
-}
-
-.fullscreen1{
-    width: 100%; height: 100%;
-
-}
-div#google_map{
- width: 100%; height: 100%;
-
-}
