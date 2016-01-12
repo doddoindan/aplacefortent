@@ -89,7 +89,6 @@
             });
 
 
-
         }
 
 
@@ -187,9 +186,15 @@
                             '</div></div>');
 
                     infowindow.setContent(contentString[0]);
-//                    $(infowindow)
-                    var saveBtn = $(infowindow.content).find('button.save-marker')[0];
-                    var removeBtn = $(infowindow.content).find('button.remove-marker')[0];
+                    var markerInfo = document.getElementById("markerInfo");
+                    markerInfo.innerHTML = contentString.html();
+                    toggleLeftBar(markerInfo,true);
+                    var saveBtn = document.getElementById("saveMarker");
+                    var removeBtn = document.getElementById("removeMarker");
+                    //var saveBtn = $(infowindow.content).find('button.save-marker')[0];
+                    //var removeBtn = $(infowindow.content).find('button.remove-marker')[0];
+                    //var saveBtn = markerInfo.find('button.save-marker')[0];
+                    //var removeBtn = markerInfo.find('button.remove-marker')[0];
 
                     if (typeof saveBtn !== 'undefined') //continue only when save button is present
                     {
@@ -204,7 +209,7 @@
                         });
                     }
                 }
-                infowindow.open(map, marker); // click on marker opens info window
+                //infowindow.open(map, marker); // click on marker opens info window
 
             });
 
@@ -268,18 +273,16 @@
                 }
             });
         }
-        $('#splitter_button').click(function(){
-            var left_bar = $('#left_bar');
-            left_bar[left_bar.is(":visible") ? "hide" : "show"](400,
-                function() {
 
-               google.maps.event.trigger(map,"resize");
+        function toggleLeftBar(sender,show) {
 
-            });
+                var left_bar = $('#left_bar');
+                left_bar[(left_bar.is(":visible") || (!show && show!==undefined)) ? "hide" : "show"](400,
+                        function () { google.maps.event.trigger(map, "resize"); });
 
+        }
 
-            //$('#left_bar').class="col-lg-1 col-md-1 col-xs-1 fullheight";
-        });
+        $('#splitter').click(toggleLeftBar);
 
     });
 </script>
