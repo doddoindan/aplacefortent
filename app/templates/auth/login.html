@@ -20,7 +20,7 @@
                 <input type="text" placeholder="Username" disabled/>
                 <input type="password" placeholder="Password" disabled />
 
-                  <a href="{{ url_for('oauth_authorize', provider='facebook') }}" class="btn btn-block btn-social btn-lg btn-facebook">
+                  <a href="{{ url_for('auth.oauth_authorize', provider='facebook') }}" class="btn btn-block btn-social btn-lg btn-facebook">
                       <span class="fa fa-facebook"></span> Sign in with Facebook
                     </a>
 

@@ -47,24 +47,23 @@
         function map_initialize() {
             var googleMapOptions =
             {
-                center: mapCenter, // map center
-                zoom: 5, //zoom level, 0 = earth view to higher value
+                center: mapCenter,
+                zoom: 5,
                 maxZoom: 18,
-                minZoom: 5,
+                minZoom: 2,
                 zoomControlOptions: {
-                    style: google.maps.ZoomControlStyle.SMALL //zoom control size
+                    style: google.maps.ZoomControlStyle.SMALL
                 },
-                scaleControl: true, // enable scale control
-                mapTypeId: google.maps.MapTypeId.ROADMAP // google map type
+                scaleControl: true,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
             map = new google.maps.Map(document.getElementById("google_map"), googleMapOptions);
 
             //Load Markers from the JSON respond, Check (map_process.php)--!!!!!!!!!
-            $.get("{{url_for('loadmarker')}}", function (data) {
+            $.get("{{url_for('marker.load')}}", function (data) {
                 $(data).each(function () {
-                    var name = $(this).attr('description');//$(this).attr('name');
-                    //var address = 'test';//'<p>'+ $(this).attr('address') +'</p>';
+                    var name = $(this).attr('description');
                     var form = '<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
                             '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>';
 
@@ -80,28 +79,20 @@
             });
 
 
-            //Right Click to Drop a New Marker
             google.maps.event.addListener(map, 'rightclick', function (event) {
                 //Edit form to be displayed with new marker
                 var EditForm = document.getElementById('entity_body').innerHTML;  //######EDIT FORM
-                //Drop a new Marker with our Edit Form
                 create_marker(event.latLng, 'New Marker', EditForm, 0, true, true, true, "public/images/google_map_icons/pin_green.png");
             });
 
 
         }
 
-
         //________________________________________
         // По нажатию на кнопку сохранить
         //----------------------------------------
         function onSaveClick(marker) {
-            //var mReplace = contentString.find('span.info-content'); //html to be replaced after success
-            //var mDesc = contentString.find('{{ editMarkerForm.description.type|lower|replace('field','') }}.save-desc')[0].value;
 
-            //var mName = contentString.find('input.save-name')[0].value; //name input field value
-            //var mDesc  = contentString.find('textarea.save-desc')[0].value; //description input field value
-            //var mType = contentString.find('select.save-type')[0].value; //type of marker
 
             var arrForm = {};
             $.each($('#editmarker').serializeArray(), function (i, field) {
@@ -130,26 +121,18 @@
                 id: id
             });
             $.markers.push(marker);
-            if (!Form) {
 
 
-            }
-            //Content structure of info Window for the Markers
             var contentString = $('<div class="marker-info-win">' +
                     '<div class="marker-inner-win"><span class="info-content">' +
                     '<h2 class="marker-heading">' + MapTitle + '</h2>' +
-                    Form + ///
+                    Form +
                     '</span>' +
-                        //'<button name="save-marker" class="save-marker">Save Marker Details</button> &nbsp;' +
-                        // '<button name="remove-marker" class="remove-marker" title="Remove Marker">Remove Marker</button>' +
+
                     '</div></div>');
 
-            //Create an infoWindow
             var infowindow = new google.maps.InfoWindow();
-            //set the content of infoWindow
             infowindow.setContent(contentString[0]);
-            //infowindow.load("/editmarker/12");
-            //Find remove button in infoWindow
             var removeBtn = contentString.find('button.remove-marker')[0];
             var saveBtn = contentString.find('button.save-marker')[0];
 
@@ -158,21 +141,19 @@
                 remove_marker(marker);
             });
 
-            if (typeof saveBtn !== 'undefined') //continue only when save button is present
+            if (typeof saveBtn !== 'undefined')
             {
-                //add click listner to save marker button
-
                 google.maps.event.addDomListener(saveBtn, "click", function (event) {
                     onSaveClick(marker)
                 });
             }
 
-            //INFO WINDOW BLIAT'
+            //INFO WINDOW
             google.maps.event.addListener(marker, 'click', function () {
                 //alert("111");
                 if (marker.id > 0) {
                     var html = $.ajax({
-                        url: "{{ url_for("editmarker") }}/" + marker.id,
+                        url: "{{ url_for("marker.editform") }}/" + marker.id,
                         async: false
                     }).responseText;
 
@@ -188,13 +169,10 @@
                     infowindow.setContent(contentString[0]);
                     var markerInfo = document.getElementById("markerInfo");
                     markerInfo.innerHTML = contentString.html();
-                    toggleLeftBar(markerInfo,true);
+                    toggleLeftBar(markerInfo, true);
                     var saveBtn = document.getElementById("saveMarker");
                     var removeBtn = document.getElementById("removeMarker");
-                    //var saveBtn = $(infowindow.content).find('button.save-marker')[0];
-                    //var removeBtn = $(infowindow.content).find('button.remove-marker')[0];
-                    //var saveBtn = markerInfo.find('button.save-marker')[0];
-                    //var removeBtn = markerInfo.find('button.remove-marker')[0];
+
 
                     if (typeof saveBtn !== 'undefined') //continue only when save button is present
                     {
@@ -233,7 +211,7 @@
                 var myData = {del: 'true', id: Marker.id}; //post variables
                 $.ajax({
                     type: "POST",
-                    url: "{{ url_for("deletemarker") }}",
+                    url: "{{ url_for("marker.delete") }}",
                     data: myData,
                     success: function (data) {
                         Marker.setMap(null);
@@ -255,7 +233,7 @@
             //console.log(replaceWin);
             $.ajax({
                 type: "POST",
-                url: "{{url_for('savemarker')}}",
+                url: "{{url_for('marker.save')}}",
                 data: myData,
                 success: function (data) {
                     $('#id').val(data.id);
@@ -275,11 +253,21 @@
         }
 
         function toggleLeftBar(sender,show) {
+            var left_bar = $('#left_bar');
 
-                var left_bar = $('#left_bar');
-                left_bar[(left_bar.is(":visible") || (!show && show!==undefined)) ? "hide" : "show"](400,
-                        function () { google.maps.event.trigger(map, "resize"); });
+            if (show !== undefined) {
 
+                    left_bar.show(400,
+                            function () {
+                                google.maps.event.trigger(map, "resize");
+                            });
+                } else {
+
+                    left_bar[(left_bar.is(":visible") || (!show && show !== undefined)) ? "hide" : "show"](400,
+                            function () {
+                                google.maps.event.trigger(map, "resize");
+                            });
+                }
         }
 
         $('#splitter').click(toggleLeftBar);

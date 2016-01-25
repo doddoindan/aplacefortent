@@ -4,7 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 ## DATABASE CONFIG#######################################
 #SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
 if os.environ.get('DATABASE_URL') is None:  ## LOCAL
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_DATABASE_URI = 'postgres://postgres:1@localhost/postgres';# 'sqlite:///' + os.path.join(basedir, 'app.db')
     OAUTH_CREDENTIALS = {
     'facebook': {
         'id': '416771981865519',

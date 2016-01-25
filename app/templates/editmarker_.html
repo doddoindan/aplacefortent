@@ -1,7 +1,7 @@
 <span class="info-content">
     <div class="well"  style="width:300px">
 
-        <form disabled="" id="editmarker" action="{{ url_for('savemarker') }}" method="post" name="edit">
+        <form disabled="" id="editmarker" action="{{ url_for('marker.save') }}" method="post" name="edit">
         <div class="row">
             {{ editMarkerForm.hidden_tag() }}
             <div class="control-group{% if editMarkerForm.errors.post %} error{% endif %}">
